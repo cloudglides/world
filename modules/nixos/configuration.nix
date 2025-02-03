@@ -94,6 +94,7 @@ curl
 nodejs_22
 gnome-keyring
 libdrm
+ghostty
 inputs.zen-browser.packages."${system}".default
   ];
 

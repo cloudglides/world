@@ -1,19 +1,38 @@
 {
-  config,
   pkgs,
+  inputs,
+  system,
+  pkgs-stable,
   ...
 }: {
-  imports = [
+
+
+imports = [
     ./fish
     ./neovim
     ./ghostty
   ];
 
+
+
+  #Home Manager configuration goes here
   home = {
     username = "cloudglides";
     homeDirectory = "/home/cloudglides";
-    stateVersion = "24.11";
+    stateVersion = "24.05"; # Check your current Home Manager version
   };
 
-  programs.home-manager.enable = true;
+  # Enable basic programs or features
+  programs = {
+    home-manager.enable = true;
+    # Add other program configurations as needed
+  };
+
+  # Optional: Add packages
+  home.packages = with pkgs; [
+    # List packages you want to install
+    # Example:
+    # htop
+    # git
+  ];
 }
