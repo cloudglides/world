@@ -10,17 +10,21 @@
     zen-browser.url = "github:pfaj/zen-browser-flake";
   };
 
-  outputs = { nixpkgs, home-manager, zen-browser, ... }@inputs: let
+  outputs = {
+    nixpkgs,
+    home-manager,
+    zen-browser,
+    ...
+  } @ inputs: let
     system = "x86_64-linux"; # Change if needed
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        ./configuration.nix
+        ./modules/nixos/configuration.nix
         home-manager.nixosModules.default
       ];
-      specialArgs = { inherit inputs system; }; # Pass system to configuration.nix
+      specialArgs = {inherit inputs system;}; # Pass system to configuration.nix
     };
   };
 }
-

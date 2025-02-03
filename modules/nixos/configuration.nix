@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
   ];
  
-  home-manager.users.cloudglides = import /home/cloudglides/dotfiles/home-manager;
+  home-manager.users.cloudglides = import /home/cloudglides/dotfiles/modules/home-manager;
   programs.nix-ld.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
