@@ -3,7 +3,7 @@
     packages = with pkgs; [fastfetch];
 
     file = {
-      ".config/fastfetch/config.jsonc".text = builtins.readFile ./fastfetch.jsonc;
+      ".config/fastfetch/config.jsonc".text = builtins.readFile ./config.jsonc;
     };
   };
 }
