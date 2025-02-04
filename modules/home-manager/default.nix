@@ -27,9 +27,7 @@
 
   # Optional: Add packages
   home.packages = with pkgs; [
-    # List packages you want to install
-    # Example:
-    # htop
-    # git
+    nixos-icons
+    pokeget-rs
   ];
 }
