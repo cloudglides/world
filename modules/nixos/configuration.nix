@@ -1,4 +1,4 @@
-{ config, pkgs, system, inputs, ... }:
+{ config, pkgs, system, ... }:
 
  {
   imports = [
@@ -95,7 +95,6 @@ nodejs_22
 gnome-keyring
 libdrm
 ghostty
-inputs.zen-browser.packages."${system}".default
   ];
 
   nixpkgs.config.allowUnfree = true;

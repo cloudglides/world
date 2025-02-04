@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   home.file = {
-    ".config" = {
+    ".config/nvim" = {
       recursive = true;
-      source = "/home/cloudglides/dotfiles/pkgs/neovim";
+      source = "${pkgs.cloudglides-nvim}";
+      force = true;
     };
   };
 

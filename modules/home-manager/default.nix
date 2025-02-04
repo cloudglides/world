@@ -5,15 +5,11 @@
   pkgs-stable,
   ...
 }: {
-
-
-imports = [
+  imports = [
     ./fish
     ./neovim
     ./ghostty
   ];
-
-
 
   #Home Manager configuration goes here
   home = {

@@ -1,20 +1,21 @@
-{
-  stdenv,
-  lib,
-}: let
-  nvim = ./nvim;
-in
-  stdenv.mkDerivation {
-    pname = "cloudglides-nvim-config";
-    version = "2.5.0";
+{ stdenv, lib }:
+stdenv.mkDerivation {
+  pname = "cloudglides-nvim";
+  version = "2.5.0";
+  
+  # Use builtins.path for pure evaluation
+  src = builtins.path {
+    path = ./nvim;
+    name = "nvim-config";
+  };
 
-    buildCommand = ''
-      mkdir -p $out
-      cp -r ${nvim}/* "$out/"
-    '';
+  installPhase = ''
+    mkdir -p $out
+    cp -r $src/* "$out/"
+  '';
 
-    meta = with lib; {
-      platforms = platforms.all;
-      license = licenses.gpl3;
-    };
-  }
+  meta = with lib; {
+    platforms = platforms.all;
+    license = licenses.gpl3;
+  };
+}
