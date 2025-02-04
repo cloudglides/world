@@ -9,6 +9,7 @@
     ./fish
     ./neovim
     ./ghostty
+    ./fastfetch
   ];
 
   #Home Manager configuration goes here

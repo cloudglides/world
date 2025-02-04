@@ -12,7 +12,7 @@
         # Font configuration
         font-family=Berkeley Mono
         font-size = 16.5
-        background-opacity = 0.9
+        background-opacity = 0.1
         unfocused-split-opacity = .09
         palette = 0=#21222c
         palette = 1=#ef78b6
