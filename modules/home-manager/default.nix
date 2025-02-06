@@ -10,6 +10,7 @@
     ./neovim
     ./ghostty
     ./fastfetch
+    ./spotify
   ];
 
   #Home Manager configuration goes here
@@ -29,5 +30,8 @@
   home.packages = with pkgs; [
     nixos-icons
     pokeget-rs
+    inputs.zen-browser.packages.x86_64-linux.default
+    niri
+    devenv
   ];
 }
