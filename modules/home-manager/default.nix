@@ -13,25 +13,35 @@
     ./spotify
   ];
 
-  #Home Manager configuration goes here
   home = {
     username = "cloudglides";
     homeDirectory = "/home/cloudglides";
-    stateVersion = "24.05"; # Check your current Home Manager version
+    stateVersion = "24.05";
   };
 
   # Enable basic programs or features
   programs = {
     home-manager.enable = true;
-    # Add other program configurations as needed
   };
 
-  # Optional: Add packages
+  # Custom desktop entries
+  xdg.desktopEntries.vesktop = {
+    name = "Vesktop";
+    exec = "vesktop";
+    icon = "/home/cloudglides/Downloads/vesktop.png"; # Using your custom icon
+    terminal = false;
+    type = "Application";
+    categories = ["Network" "InstantMessaging"];
+  };
+
+  # Packages
   home.packages = with pkgs; [
     nixos-icons
     pokeget-rs
     inputs.zen-browser.packages.x86_64-linux.default
     niri
     devenv
+    vesktop
+    nodejs_18
   ];
 }

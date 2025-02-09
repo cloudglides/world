@@ -67,7 +67,6 @@
 
 environment.systemPackages = with pkgs; [
 fish
-vesktop
 brave
 git
 neovim
@@ -95,7 +94,6 @@ exiftool
 gh
 obsidian
 curl
-nodejs_22
 gnome-keyring
 libdrm
 ghostty
