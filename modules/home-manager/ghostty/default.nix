@@ -40,6 +40,17 @@
     };
   };
 
+  xdg.desktopEntries = {
+    "com.mitchellh.ghostty" = {
+      name = "Ghostty";
+      exec = "ghostty";
+      icon = "/home/cloudglides/Downloads/ghostty_fixed.png";
+      terminal = false;
+      type = "Application";
+      categories = ["Network" "InstantMessaging"];
+    };
+  };
+
   home.packages = with pkgs; [
     ghostty
   ];
