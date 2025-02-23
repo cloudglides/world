@@ -26,10 +26,10 @@
 
   # Custom desktop entries
   xdg.desktopEntries = {
-    vesktop = {
+    discord = {
       name = "Vesktop";
-      exec = "vesktop";
-      icon = "/home/cloudglides/Downloads/vencord.png";
+      exec = "discord";
+      icon = "/etc/icons/vencord.png";
       terminal = false;
       type = "Application";
       categories = ["Network" "InstantMessaging"];
@@ -37,7 +37,7 @@
     miru = {
       name = "Miru";
       exec = "miru";
-      icon = "/home/cloudglides/Downloads/neko.png";
+      icon = "/etc/icons/miru.png";
       terminal = false;
       type = "Application";
       categories = ["Network" "InstantMessaging"];
@@ -45,7 +45,7 @@
     zen = {
       name = "Zen";
       exec = "zen";
-      icon = "/home/cloudglides/Downloads/Zen-Dark-LightAcc-1024.ico";
+      icon = "/etc/icons/zen.ico";
       terminal = false;
       type = "Application";
       categories = ["Network" "InstantMessaging"];
@@ -53,7 +53,7 @@
     obsidian = {
       name = "Obsidian";
       exec = "obsidian";
-      icon = "/home/cloudglides/Downloads/obsidian.png";
+      icon = "/etc/icons/obsidian.png";
       terminal = false;
       type = "Application";
       categories = ["Network" "InstantMessaging"];
@@ -68,7 +68,12 @@
     niri
     imagemagick
     devenv
-    vesktop
+    (discord.override {
+      withVencord = true;
+    })
     nodejs_18
+    sox
+    qbittorrent-enhanced
+    zed
   ];
 }

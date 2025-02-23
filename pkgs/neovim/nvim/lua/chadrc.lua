@@ -1,28 +1,28 @@
 local M = {}
 
 M.base46 = {
-  theme = "poimandres",
-  transparency = true,
+	theme = "kanagawa-dragon",
+	transparency = true,
 }
 
 M.lsp = {
-  signature = false,
+	signature = false,
 }
 
 M.nvdash = {
-  load_on_startup = true,
+	load_on_startup = true,
 
-  header = {
-    "                          ",
-    "                          ",
-    "|--------------------------|",
-    "|   NOBODY FUX WITH CLOUD  |",
-    "|--------------------------|",
-    "        \\ (•◡•) /        ",
-    "         \\     /         ",
-    "                          ",
-    "                          ",
-  },
+	header = {
+		"                          ",
+		"                          ",
+		"|--------------------------|",
+		"|   NOBODY FUX WITH CLOUD  |",
+		"|--------------------------|",
+		"        \\ (•◡•) /        ",
+		"         \\     /         ",
+		"                          ",
+		"                          ",
+	},
 }
 
 return M

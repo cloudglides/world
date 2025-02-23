@@ -1,15 +1,23 @@
 { config, pkgs, system, ... }:
 
- {
+{
   imports = [
     ./hardware-configuration.nix
   ];
- 
+
+  # Enable Nix linker (nix-ld)
   programs.nix-ld.enable = true;
+
+  # Bootloader and EFI settings
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   hardware.enableAllFirmware = true;
+
+  # Hostname and networking
   networking.hostName = "nixos";
+  networking.networkmanager.enable = true;
+
+  # CPU frequency scaling
   services.auto-cpufreq = {
     enable = true;
     settings = {
@@ -26,13 +34,30 @@
       };
     };
   };
-
- 
   services.power-profiles-daemon.enable = false;
-  networking.networkmanager.enable = true;
+
+
+ networking = {
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    # If you want to disable the default DNS provided by DHCP
+    dhcpcd.extraConfig = "nohook resolv.conf";
+  };
+
+
+
+
+
+
+
+
+
+
+
+  # Timezone and Locale
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_IN";
 
+  # X Server and GNOME Desktop
   services.xserver = {
     enable = true;
     xkb = { layout = "us"; };
@@ -40,6 +65,7 @@
     desktopManager.gnome.enable = true;
   };
 
+  # Audio with Pipewire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -47,59 +73,98 @@
     pulse.enable = true;
   };
 
+  # Enable Fish shell
   programs.fish.enable = true;
 
+  # Define user 'cloudglides' (added 'podman' to extraGroups)
   users.users.cloudglides = {
     isNormalUser = true;
     description = "cloudglides";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "podman" ];
     shell = pkgs.fish;
   };
 
+security.pam.loginLimits = [
+  {
+    domain = "*";
+    type = "soft";
+    item = "nofile";
+    value = "65535";
+  }
+  {
+    domain = "*";
+    type = "hard";
+    item = "nofile";
+    value = "65535";
+  }
+];
 
 
-    nix.extraOptions = ''
-        trusted-users = root cloudglides
-        extra-substituters = https://devenv.cachix.org
-        extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-    '';  
+services.openssh = {
+  enable = true;
+  passwordAuthentication = true;   # Enable temporary password login
+  challengeResponseAuthentication = true;
+};
 
+  # Nix options
+  nix.extraOptions = ''
+    trusted-users = root cloudglides
+    extra-substituters = https://devenv.cachix.org
+    extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+  '';
 
- environment.etc."icons".source = ./assets/icons;
-environment.systemPackages = with pkgs; [
-fish
-brave
-git
-neovim
-gnome-tweaks
-miru
-auto-cpufreq
-zsh
-zig
-unzip
-clang
-gcc
-p7zip
-spicetify-cli
-spotify
-home-manager
-wl-clipboard
-fastfetch
-oh-my-zsh
-wakatime-cli
-lua-language-server
-pokeget-rs
-btop
-superfile
-exiftool
-gh
-obsidian
-curl
-gnome-keyring
-libdrm
-ghostty
+  # System packages
+  environment.systemPackages = with pkgs; [
+    fish
+    brave
+    git
+    neovim
+    gnome-tweaks
+    miru
+    auto-cpufreq
+    zsh
+    zig
+    unzip
+    clang
+    gcc
+    p7zip
+    spicetify-cli
+    spotify
+    home-manager
+    wl-clipboard
+    fastfetch
+    oh-my-zsh
+    wakatime-cli
+    lua-language-server
+    pokeget-rs
+    btop
+    superfile
+    exiftool
+    gh
+    obsidian
+    curl
+    gnome-keyring
+    libdrm
+    ghostty
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  # Podman and container settings
+  virtualisation = {
+    # Enable container configuration support
+    containers.enable = true;
+
+    # Enable Podman with Docker compatibility and required DNS settings.
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+
+    # Use Podman as the backend for oci-containers (if you want to run containers as systemd services)
+    oci-containers.backend = "podman";
+  };
+nixpkgs.config.allowUnfree = true;
+  # Allow unfree packages and state version
   system.stateVersion = "24.11";
 }
+

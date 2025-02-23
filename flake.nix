@@ -38,6 +38,9 @@
           };
         }
         {
+          environment.etc."icons".source = ./assets/icons;
+        }
+        {
           nixpkgs.overlays = [
             (final: prev: {
               cloudglides-nvim = final.callPackage ./pkgs/neovim {};
