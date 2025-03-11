@@ -75,5 +75,8 @@
     sox
     qbittorrent-enhanced
     zed
+    qemu
+    bat
+    neofetch
   ];
 }

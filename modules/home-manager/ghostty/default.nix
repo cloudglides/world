@@ -13,7 +13,7 @@
         font-family=Berkeley Mono
         font-size = 16.5
         background-opacity = 0.99
-        theme=0x96f
+        theme=vesper
       '';
     };
   };

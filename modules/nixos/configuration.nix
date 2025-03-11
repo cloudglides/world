@@ -35,13 +35,8 @@
     };
   };
   services.power-profiles-daemon.enable = false;
+virtualisation.docker.enable = true;
 
-
- networking = {
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
-    # If you want to disable the default DNS provided by DHCP
-    dhcpcd.extraConfig = "nohook resolv.conf";
-  };
 
 
 
@@ -80,7 +75,7 @@
   users.users.cloudglides = {
     isNormalUser = true;
     description = "cloudglides";
-    extraGroups = [ "networkmanager" "wheel" "podman" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.fish;
   };
 
@@ -148,21 +143,6 @@ services.openssh = {
     ghostty
   ];
 
-  # Podman and container settings
-  virtualisation = {
-    # Enable container configuration support
-    containers.enable = true;
-
-    # Enable Podman with Docker compatibility and required DNS settings.
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
-
-    # Use Podman as the backend for oci-containers (if you want to run containers as systemd services)
-    oci-containers.backend = "podman";
-  };
 nixpkgs.config.allowUnfree = true;
   # Allow unfree packages and state version
   system.stateVersion = "24.11";
