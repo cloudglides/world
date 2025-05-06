@@ -71,7 +71,7 @@
     (discord.override {
       withVencord = true;
     })
-    nodejs_18
+    nodejs_20
     sox
     qbittorrent-enhanced
     zed
