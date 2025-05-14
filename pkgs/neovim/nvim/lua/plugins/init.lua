@@ -12,6 +12,7 @@ local plugins = {
   },
   -- Treesitter with Svelte support
   {
+
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
@@ -103,6 +104,13 @@ local plugins = {
     lazy = true,
     cmd = { "Outline", "OutlineOpen" },
     opts = {},
+  },
+  -- cord
+  {
+    'vyfor/cord.nvim',
+    build = ':Cord update',
+    lazy = false,
+    -- opts = {}
   },
   -- Trouble
   {
