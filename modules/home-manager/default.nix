@@ -55,57 +55,30 @@
     };
   };
 
-  # Packages
+
   home.packages = with pkgs; [
-    nixos-icons
-    pokeget-rs
-    inputs.zen-browser.packages.x86_64-linux.default
-    niri
-    imagemagick
-    devenv
-    (discord.override {
-      withVencord = true;
-    })
-    nodejs_20
-    sox
-    qbittorrent-enhanced
-    zed
-    qemu
-    nushell
-    bat
-    neofetch
-    jq
-    wget
-    stremio
-    jujutsu
-    jjui
-    direnv
-    elixir-ls
-    windsurf
-    chromium
-    fish
-    brave
-    git
-    gnome-tweaks
-    miru
-    auto-cpufreq
-    zsh
-    zig
-    unzip
-    p7zip
-    spicetify-cli
-    spotify
-    wl-clipboard
-    oh-my-zsh
-    wakatime-cli
-    lua-language-server
-    btop
-    superfile
-    exiftool
-    gh
-    affine
-    curl
-    gnome-keyring
-    libdrm
+nodejs_20
+zig
+jjui
+jujutsu
+nixos-icons
+pokeget-rs
+inputs.zen-browser.packages.x86_64-linux.default
+qemu
+windurf
+(discord.override {
+  withVencord = true;
+})
+qbittorrent-enhanced
+stremio
+brave
+chromium
+zed
+miru
+affine
+spicetify-cli
+spotify
+wl-clipboard
+niri
   ];
 }

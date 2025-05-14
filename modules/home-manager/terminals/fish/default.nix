@@ -37,5 +37,12 @@
   };
 
   home.packages = with pkgs; [
+    fish
+git
+gnome-tweaks
+auto-cpufreq
+waketime-cli
+zsh
+oh-my-zsh
   ];
 }

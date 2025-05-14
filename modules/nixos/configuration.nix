@@ -86,37 +86,7 @@
   '';
 
   environment.systemPackages = with pkgs; [
-    fish
-    brave
-    git
-    neovim
-    gnome-tweaks
-    miru
     auto-cpufreq
-    zsh
-    zig
-    unzip
-    clang
-    gcc
-    p7zip
-    spicetify-cli
-    spotify
-    home-manager
-    wl-clipboard
-    fastfetch
-    oh-my-zsh
-    wakatime-cli
-    lua-language-server
-    pokeget-rs
-    btop
-    superfile
-    exiftool
-    gh
-    affine
-    curl
-    gnome-keyring
-    libdrm
-    ghostty
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -29,5 +29,25 @@
 
   home.packages = with pkgs; [
     ghostty
+    bat
+    neofetch
+    jq
+    wget
+    direnv
+    nushell
+    zsh
+    oh-my-zsh
+    btop
+    superfile
+    exiftool
+    gh
+    curl
+    libdrm
+    imagemagick
+    sox
+    unzip
+    p7zip
+    devenv
+    gnome-keyring
   ];
 }
