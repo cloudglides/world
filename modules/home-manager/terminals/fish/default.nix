@@ -38,11 +38,10 @@
 
   home.packages = with pkgs; [
     fish
-git
-gnome-tweaks
-auto-cpufreq
-waketime-cli
-zsh
-oh-my-zsh
+    git
+    gnome-tweaks
+    auto-cpufreq
+    zsh
+    oh-my-zsh
   ];
 }

@@ -55,30 +55,29 @@
     };
   };
 
-
   home.packages = with pkgs; [
-nodejs_20
-zig
-jjui
-jujutsu
-nixos-icons
-pokeget-rs
-inputs.zen-browser.packages.x86_64-linux.default
-qemu
-windurf
-(discord.override {
-  withVencord = true;
-})
-qbittorrent-enhanced
-stremio
-brave
-chromium
-zed
-miru
-affine
-spicetify-cli
-spotify
-wl-clipboard
-niri
+    nodejs_20
+    zig
+    jjui
+    jujutsu
+    nixos-icons
+    pokeget-rs
+    inputs.zen-browser.packages.x86_64-linux.default
+    qemu
+    windsurf
+    (discord.override {
+      withVencord = true;
+    })
+    qbittorrent-enhanced
+    stremio
+    brave
+    chromium
+    zed
+    miru
+    affine
+    spicetify-cli
+    spotify
+    wl-clipboard
+    niri
   ];
 }
