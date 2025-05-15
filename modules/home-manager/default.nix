@@ -65,9 +65,7 @@
     inputs.zen-browser.packages.x86_64-linux.default
     qemu
     windsurf
-    (discord.override {
-      withVencord = true;
-    })
+    discord
     qbittorrent-enhanced
     stremio
     brave

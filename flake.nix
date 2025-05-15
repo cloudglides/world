@@ -41,6 +41,7 @@
           nixpkgs.overlays = [
             (final: prev: {
               cloudglides-nvim = final.callPackage ./pkgs/neovim {};
+              cloudglides-ghostty = final.callPackage ./pkgs/ghostty {};
             })
           ];
         }

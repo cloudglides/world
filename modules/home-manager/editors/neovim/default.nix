@@ -35,6 +35,7 @@
       luarocks
       lua-language-server
 
+      ripgrep
       # ts
       typescript
     ];

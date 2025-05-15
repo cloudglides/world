@@ -3,12 +3,12 @@
   lib,
 }:
 stdenv.mkDerivation {
-  pname = "cloudglides-nvim";
+  pname = "cloudglides-ghostty";
   version = "2.5.0";
 
   src = builtins.path {
-    path = ./nvim;
-    name = "nvim-config";
+    path = ./ghostty;
+    name = "ghostty-config";
   };
 
   installPhase = ''
