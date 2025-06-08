@@ -76,6 +76,15 @@
     spicetify-cli
     spotify
     wl-clipboard
+    qbittorrent-enhanced
     niri
+    tmux
   ];
+
+  home.file.".config/mimeapps.list" = {
+    text = ''
+      [Default Applications]
+      inode/directory=niri.desktop
+    '';
+  };
 }

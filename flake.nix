@@ -1,6 +1,5 @@
 {
   description = "lil flake";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
@@ -10,7 +9,6 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-nebula.url = "github:JustAdumbPrsn/Nebula-A-Minimal-Theme-for-Zen-Browser";
   };
-
   outputs = inputs @ {
     self,
     nixpkgs,
@@ -18,7 +16,15 @@
     ...
   }: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    overlay = final: prev: {
+      cloudglides-nvim = final.callPackage ./pkgs/neovim {};
+      cloudglides-ghostty = final.callPackage ./pkgs/ghostty {};
+    };
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [overlay];
+      config.allowUnfree = true;
+    };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
@@ -27,23 +33,20 @@
         ./modules/nixos/configuration.nix
         home-manager.nixosModules.home-manager
         {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs = {inherit inputs;};
-            users.cloudglides = import ./modules/home-manager;
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+          home-manager.extraSpecialArgs = {inherit inputs pkgs;};
+          home-manager.users.cloudglides = {
+            imports = [./modules/home-manager/default.nix];
           };
         }
         {
           environment.etc."icons".source = ./assets/icons;
         }
         {
-          nixpkgs.overlays = [
-            (final: prev: {
-              cloudglides-nvim = final.callPackage ./pkgs/neovim {};
-              cloudglides-ghostty = final.callPackage ./pkgs/ghostty {};
-            })
-          ];
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = [overlay];
         }
       ];
     };
