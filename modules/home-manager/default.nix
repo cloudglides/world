@@ -8,13 +8,8 @@
     ./editors/neovim
     ./terminals/ghostty
     ./utilities/fastfetch
-    inputs.zen-nebula.homeModules.default
+    ./utilities/tmux
   ];
-
-  zen-nebula = {
-    enable = true;
-    profile = "yxcu92v3.Default Profile";
-  };
 
   programs.direnv = {
     enable = true;
