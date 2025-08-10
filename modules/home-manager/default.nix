@@ -59,14 +59,13 @@
     pokeget-rs
     inputs.zen-browser.packages.x86_64-linux.default
     qemu
-    windsurf
     discord
+    tailscale
     qbittorrent-enhanced
     stremio
     brave
     chromium
     zed
-    miru
     affine
     spicetify-cli
     spotify

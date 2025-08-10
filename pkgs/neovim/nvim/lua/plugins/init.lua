@@ -112,11 +112,6 @@ local plugins = {
     lazy = false,
     -- opts = {}
   },
-  {
-    'nvim-telescope/telescope-media-files.nvim',
-    lazy = false,
-    -- opts = {}
-  },
   -- Trouble
   {
     "folke/trouble.nvim",
