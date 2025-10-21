@@ -33,12 +33,10 @@
     stateVersion = "24.05";
   };
 
-  # Enable basic programs or features
   programs = {
     home-manager.enable = true;
   };
 
-  # Custom desktop entries
   xdg.desktopEntries = {
     discord = {
       name = "Vesktop";
