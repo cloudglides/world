@@ -11,6 +11,10 @@
     ./utilities/tmux
   ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-35.7.5"
+  ];
+
   programs.direnv = {
     enable = true;
     silent = true;
@@ -59,20 +63,18 @@
     pokeget-rs
     inputs.zen-browser.packages.x86_64-linux.default
     qemu
-    discord
+    vesktop
     tailscale
     qbittorrent-enhanced
-    stremio
     brave
-    chromium
     zed
-    affine
     spicetify-cli
-    spotify
     wl-clipboard
     qbittorrent-enhanced
     niri
     tmux
+    windsurf
+    inputs.hayase.packages.${pkgs.system}.default
   ];
 
   home.file.".config/mimeapps.list" = {

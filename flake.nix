@@ -6,7 +6,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-for-stremio.url = "nixpkgs/5135c59491985879812717f4c9fea69604e7f26f";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    hayase.url = "github:cloudglides/hayase-nix";
   };
   outputs = inputs @ {
     self,
