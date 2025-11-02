@@ -33,6 +33,11 @@
     stateVersion = "24.05";
   };
 
+  services.vicinae = {
+    enable = true;
+    autoStart = true;
+  };
+
   programs = {
     home-manager.enable = true;
   };
@@ -54,7 +59,7 @@
 
   home.packages = with pkgs; [
     nodejs_20
-    zig
+    zig_0_13
     jjui
     jujutsu
     nixos-icons
@@ -65,20 +70,19 @@
     tailscale
     qbittorrent-enhanced
     brave
+    bun
     zed
     spicetify-cli
     wl-clipboard
     qbittorrent-enhanced
+    gemini-cli
     niri
     tmux
     windsurf
     inputs.hayase.packages.${pkgs.system}.default
+    inputs.helium.defaultPackage.${pkgs.system}
+    cargo-tauri
+    discord-ptb
+    pnpm
   ];
-
-  home.file.".config/mimeapps.list" = {
-    text = ''
-      [Default Applications]
-      inode/directory=niri.desktop
-    '';
-  };
 }

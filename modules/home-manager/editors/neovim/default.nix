@@ -28,9 +28,6 @@
       deadnix # Find and remove unused
       alejandra # Code Formatter
 
-      # elixir
-      elixir-ls
-
       # lua
       luarocks
       lua-language-server
