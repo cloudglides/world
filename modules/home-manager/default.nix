@@ -56,7 +56,9 @@
       terminal = false;
     };
   };
-
+  services.flatpak.packages = [
+    "org.vinegarhq.Sober"
+  ];
   home.packages = with pkgs; [
     nodejs_20
     zig_0_13

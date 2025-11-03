@@ -11,11 +11,13 @@
     hayase.url = "github:cloudglides/hayase-nix";
     helium.url = "github:FKouhai/helium2nix/main";
     vicinae.url = "github:vicinaehq/vicinae";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
   outputs = inputs @ {
     self,
     nixpkgs,
     vicinae,
+    nix-flatpak,
     home-manager,
     ...
   }: let
@@ -46,6 +48,7 @@
             imports = [
               ./modules/home-manager/default.nix
               inputs.vicinae.homeManagerModules.default
+              inputs.nix-flatpak.homeManagerModules.nix-flatpak
             ];
           };
         }
