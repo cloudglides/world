@@ -14,6 +14,17 @@
   nixpkgs.config.permittedInsecurePackages = [
     "electron-35.7.5"
   ];
+  programs.gpg = {
+    enable = true;
+    settings = {
+      use-agent = true;
+    };
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-tty;
+  };
 
   programs.direnv = {
     enable = true;
