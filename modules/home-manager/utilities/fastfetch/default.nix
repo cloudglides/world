@@ -23,7 +23,7 @@
         };
         key = {
           width = 4;
-        }; # Changed from string to number
+        };
       };
       modules = [
         "break"
