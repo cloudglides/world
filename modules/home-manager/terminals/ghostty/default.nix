@@ -35,7 +35,6 @@
     gnome-keyring
   ];
 
-  # Copy ghostty config and shaders into ~/.config/ghostty
   home.file.".config/ghostty/config" = {
     source = pkgs.cloudglides-ghostty + "/config";
     recursive = true;
