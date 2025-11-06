@@ -1,5 +1,4 @@
 local overrides = require("configs.overrides")
-
 local plugins = {
   -- Formatting
   {
@@ -12,13 +11,13 @@ local plugins = {
   },
   -- Treesitter with Svelte support
   {
-
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, { "svelte", "html", "css", "javascript", "typescript", "elixir" })
     end,
   },
+  { 'wakatime/vim-wakatime', lazy = false },
   -- Mason
   {
     "williamboman/mason.nvim",
@@ -55,7 +54,9 @@ local plugins = {
     config = function()
       require("nvchad.configs.lspconfig").defaults()
       require("configs.lspconfig")
-      require("lspconfig").svelte.setup({})
+      -- Svelte LSP configuration using new API
+      vim.lsp.config('svelte', {})
+      vim.lsp.enable('svelte')
     end,
   },
   -- null-ls for formatting (Prettier)
@@ -164,5 +165,4 @@ local plugins = {
     end,
   },
 }
-
 return plugins

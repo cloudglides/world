@@ -1,7 +1,7 @@
 local configs = require("nvchad.configs.lspconfig")
 local on_attach = configs.on_attach
 local capabilities = configs.capabilities
-local lspconfig = require("lspconfig")
+
 local servers = {
   "eslint",
   "gopls",
@@ -10,18 +10,25 @@ local servers = {
   "elixirls",
   "clangd", -- Added for C/C++ support
 }
+
+-- Configure standard servers
 for _, lsp in ipairs(servers) do
-  local opts = {
+  local config = {
     on_attach = on_attach,
     capabilities = capabilities,
   }
+
   -- Elixir special config
   if lsp == "elixirls" then
-    opts.cmd = { "elixir-ls" } -- assumes elixir-ls is in PATH
+    config.cmd = { "elixir-ls" } -- assumes elixir-ls is in PATH
   end
-  lspconfig[lsp].setup(opts)
+
+  vim.lsp.config(lsp, config)
+  vim.lsp.enable(lsp)
 end
-lspconfig.nil_ls.setup({
+
+-- nil_ls configuration
+vim.lsp.config('nil_ls', {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "nix" },
@@ -34,17 +41,26 @@ lspconfig.nil_ls.setup({
     },
   },
 })
-lspconfig.html.setup({
+vim.lsp.enable('nil_ls')
+
+-- HTML configuration
+vim.lsp.config('html', {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "html", "templ" },
 })
-lspconfig.htmx.setup({
+vim.lsp.enable('html')
+
+-- HTMX configuration
+vim.lsp.config('htmx', {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "html", "templ" },
 })
-lspconfig.tailwindcss.setup({
+vim.lsp.enable('htmx')
+
+-- Tailwind CSS configuration
+vim.lsp.config('tailwindcss', {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = {
@@ -53,3 +69,4 @@ lspconfig.tailwindcss.setup({
   },
   init_options = { userLanguages = { templ = "html" } },
 })
+vim.lsp.enable('tailwindcss')

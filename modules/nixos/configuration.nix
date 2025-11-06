@@ -3,10 +3,6 @@
     ./hardware-configuration.nix
   ];
 
-
- 
-
-
   programs.nix-ld.enable = true;
 
   boot.loader.systemd-boot.enable = true;
@@ -26,7 +22,7 @@
   services.tlp = {
     enable = true;
     settings = {
-      START_CHARGE_THRESH_BAT0 = 50;  
+      START_CHARGE_THRESH_BAT0 = 50;
       STOP_CHARGE_THRESH_BAT0 = 80;
 
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -44,9 +40,8 @@
     };
   };
 
-  
   services.power-profiles-daemon.enable = false;
- services.flatpak.enable = true;
+  services.flatpak.enable = true;
   virtualisation.docker.enable = true;
 
   time.timeZone = "Asia/Kolkata";
@@ -67,7 +62,6 @@
   };
 
   programs.fish.enable = true;
-  
 
   users.users.cloudglides = {
     isNormalUser = true;
@@ -75,7 +69,6 @@
     extraGroups = ["networkmanager" "wheel" "docker"];
     shell = pkgs.fish;
   };
-
 
   security.pam.loginLimits = [
     {

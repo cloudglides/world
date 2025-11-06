@@ -23,7 +23,7 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-tty;
+    pinentry.package = pkgs.pinentry-tty;
   };
 
   programs.direnv = {
@@ -60,12 +60,6 @@
       icon = "/etc/icons/vencord.png";
       terminal = false;
     };
-    zen = {
-      name = "Zen";
-      exec = "zen";
-      icon = "/etc/icons/zen.ico";
-      terminal = false;
-    };
   };
   services.flatpak.packages = [
     "org.vinegarhq.Sober"
@@ -77,7 +71,6 @@
     jujutsu
     nixos-icons
     pokeget-rs
-    inputs.zen-browser.packages.x86_64-linux.default
     qemu
     vesktop
     tailscale
@@ -91,11 +84,12 @@
     gemini-cli
     niri
     tmux
-    windsurf
     inputs.hayase.packages.${pkgs.system}.default
     inputs.helium.defaultPackage.${pkgs.system}
     cargo-tauri
     discord-ptb
+    amp-cli
     pnpm
+    wakatime-cli
   ];
 }
