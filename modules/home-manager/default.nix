@@ -63,6 +63,8 @@
   };
   services.flatpak.packages = [
     "org.vinegarhq.Sober"
+    "com.stremio.Stremio"
+    "in.cinny.Cinny"
   ];
   home.packages = with pkgs; [
     nodejs_20
@@ -86,9 +88,9 @@
     tmux
     inputs.hayase.packages.${pkgs.system}.default
     inputs.helium.defaultPackage.${pkgs.system}
+    inputs.nixcord.homeModules.nixcord
     cargo-tauri
     discord-ptb
-    amp-cli
     pnpm
     wakatime-cli
   ];
