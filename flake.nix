@@ -52,9 +52,6 @@
               inputs.nix-flatpak.homeManagerModules.nix-flatpak
               inputs.nixcord.homeModules.default
             ];
-
-            # actually enable nixcord
-            programs.nixcord.enable = true;
           };
         }
 

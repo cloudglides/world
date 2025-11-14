@@ -9,6 +9,7 @@
     ./terminals/ghostty
     ./utilities/fastfetch
     ./utilities/tmux
+    ./utilities/vesktop
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -88,7 +89,7 @@
     tmux
     inputs.hayase.packages.${pkgs.system}.default
     inputs.helium.defaultPackage.${pkgs.system}
-    inputs.nixcord.homeModules.nixcord
+    inputs.nixcord.packages
     cargo-tauri
     discord-ptb
     pnpm
