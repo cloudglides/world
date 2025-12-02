@@ -47,9 +47,7 @@
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_IN";
 
-  services.xserver = {
-    enable = true;
-    xkb = {layout = "us";};
+  services = {
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };

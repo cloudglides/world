@@ -55,9 +55,9 @@
   };
 
   xdg.desktopEntries = {
-    discord = {
-      name = "Vesktop";
-      exec = "discord";
+    vesktop = {
+      name = "vesktop";
+      exec = "vesktop";
       icon = "/etc/icons/vencord.png";
       terminal = false;
     };
@@ -75,7 +75,6 @@
     nixos-icons
     pokeget-rs
     qemu
-    vesktop
     tailscale
     qbittorrent-enhanced
     brave
@@ -89,7 +88,6 @@
     tmux
     inputs.hayase.packages.${pkgs.system}.default
     inputs.helium.defaultPackage.${pkgs.system}
-    inputs.nixcord.packages
     cargo-tauri
     discord-ptb
     pnpm

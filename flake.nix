@@ -50,7 +50,6 @@
               ./modules/home-manager/default.nix
               inputs.vicinae.homeManagerModules.default
               inputs.nix-flatpak.homeManagerModules.nix-flatpak
-              inputs.nixcord.homeModules.default
             ];
           };
         }
