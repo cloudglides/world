@@ -8,7 +8,9 @@ local servers = {
   "templ",
   -- "rust_analyzer", -- Removed to avoid conflict with rustaceanvim
   "elixirls",
-  "clangd", -- Added for C/C++ support
+  "clangd",
+  "tsserver",
+  "tailwindcss",
 }
 
 -- Configure standard servers

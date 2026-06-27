@@ -12,9 +12,6 @@
     ./utilities/vesktop
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-35.7.5"
-  ];
   programs.gpg = {
     enable = true;
     settings = {
@@ -45,11 +42,6 @@
     stateVersion = "24.05";
   };
 
-  services.vicinae = {
-    enable = true;
-    autoStart = true;
-  };
-
   programs = {
     home-manager.enable = true;
   };
@@ -62,13 +54,20 @@
       terminal = false;
     };
   };
+
+  programs.neovim.withRuby = false;
+  programs.nixcord.discord.vencord.enable = true;
+
   services.flatpak.packages = [
     "org.vinegarhq.Sober"
     "com.stremio.Stremio"
     "in.cinny.Cinny"
+    "com.usebottles.bottles"
+    "com.bambulab.BambuStudio"
   ];
+
   home.packages = with pkgs; [
-    nodejs_20
+    nodejs_24
     zig_0_13
     jjui
     jujutsu
@@ -84,13 +83,22 @@
     wl-clipboard
     qbittorrent-enhanced
     gemini-cli
+    freecad-wayland
     niri
     tmux
+    helium
+    inputs.lookout.packages.${pkgs.system}.default
     inputs.hayase.packages.${pkgs.system}.default
-    inputs.helium.defaultPackage.${pkgs.system}
     cargo-tauri
     discord-ptb
     pnpm
     wakatime-cli
+    amp-cli
+    proton-vpn
+    firefox
+    osu-lazer
+    blender
+    kicad
+    antigravity
   ];
 }

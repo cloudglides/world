@@ -9,6 +9,13 @@ local plugins = {
       require("configs.conform")
     end,
   },
+    -- Amp Plugin
+{
+  "sourcegraph/amp.nvim",
+  branch = "main", 
+  lazy = false,
+  opts = { auto_start = true, log_level = "info" },
+},
   -- Treesitter with Svelte support
   {
     "nvim-treesitter/nvim-treesitter",

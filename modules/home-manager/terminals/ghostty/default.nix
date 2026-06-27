@@ -2,7 +2,7 @@
   xdg.desktopEntries = {
     "com.mitchellh.ghostty" = {
       name = "Ghostty";
-      exec = "ghostty";
+      exec = "${pkgs.ghostty}/bin/ghostty";
       icon = "/etc/icons/ghostty.png";
       terminal = false;
       type = "Application";
@@ -13,7 +13,6 @@
   home.packages = with pkgs; [
     ghostty
     bat
-    neofetch
     jq
     wget
     direnv

@@ -3,16 +3,37 @@
     ./hardware-configuration.nix
   ];
 
-  programs.nix-ld.enable = true;
 
+
+boot.kernel.sysctl = {
+  "kernel.sysrq" = 1;
+};
+
+
+ fonts.packages = with pkgs; [
+     noto-fonts-cjk-sans
+   ];
+
+
+  programs.nix-ld.enable = true;
+  services.gvfs.enable = true;
+  programs.dconf.enable = true;
+
+services.gnome.gnome-online-accounts.enable = true;
+ services.dbus.packages = [
+    pkgs.gnome-online-accounts
+    pkgs.gvfs
+  ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  hardware.enableAllFirmware = true;
-
+  hardware.enableRedistributableFirmware = true;
+  hardware.graphics.enable = true;
+hardware.graphics.enable32Bit = true;
   nixpkgs.config.permittedInsecurePackages = [
     "electron-35.7.5"
   ];
+  console.keyMap = "us";
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -20,7 +41,6 @@
   services.tailscale.enable = true;
 
   services.tlp = {
-    enable = true;
     settings = {
       START_CHARGE_THRESH_BAT0 = 50;
       STOP_CHARGE_THRESH_BAT0 = 80;
@@ -64,7 +84,7 @@
   users.users.cloudglides = {
     isNormalUser = true;
     description = "cloudglides";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "dialout"];
     shell = pkgs.fish;
   };
 
@@ -104,6 +124,9 @@
 
   environment.systemPackages = with pkgs; [
     tlp
+     gvfs
+    gnome-online-accounts
+    rclone
   ];
 
   nixpkgs.config.allowUnfree = true;

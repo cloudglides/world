@@ -1,6 +1,10 @@
 {pkgs, ...}: {
   programs.fish = {
     enable = true;
+    shellAliases = {
+      kys = "echo o > /proc/sysrq-trigger";
+    };
+
     interactiveShellInit = ''
 
        set fish_greeting (awk '

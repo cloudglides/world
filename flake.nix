@@ -9,10 +9,10 @@
     };
     nixpkgs-for-stremio.url = "github:NixOS/nixpkgs/5135c59491985879812717f4c9fea69604e7f26f";
     hayase.url = "github:cloudglides/hayase-nix";
-    helium.url = "github:FKouhai/helium2nix/main";
-    vicinae.url = "github:vicinaehq/vicinae";
+    helium.url = "github:cloudglides/helium-nix/main";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixcord.url = "github:kaylorben/nixcord";
+    lookout.url = "github:cloudglides/lookout-nix";
   };
 
   outputs = inputs @ {
@@ -29,7 +29,7 @@
     };
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [overlay];
+      overlays = [overlay inputs.helium.overlays.default];
       config.allowUnfree = true;
     };
   in {
@@ -48,7 +48,6 @@
           home-manager.users.cloudglides = {
             imports = [
               ./modules/home-manager/default.nix
-              inputs.vicinae.homeManagerModules.default
               inputs.nix-flatpak.homeManagerModules.nix-flatpak
             ];
           };
@@ -58,14 +57,6 @@
         {
           nixpkgs.config.allowUnfree = true;
           nixpkgs.overlays = [overlay];
-        }
-        {
-          nix.settings = {
-            extra-substituters = ["https://vicinae.cachix.org"];
-            extra-trusted-public-keys = [
-              "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
-            ];
-          };
         }
       ];
     };

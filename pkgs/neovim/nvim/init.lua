@@ -13,6 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 local lazy_config = require("configs.lazy")
 
+
+-- require('amp').setup({ auto_start = true, log_level = "info" })
 -- load plugins
 require("lazy").setup({
   {
