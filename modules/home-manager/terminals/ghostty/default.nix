@@ -6,7 +6,7 @@
       icon = "/etc/icons/ghostty.png";
       terminal = false;
       type = "Application";
-      categories = ["Network" "InstantMessaging"];
+      categories = ["System" "TerminalEmulator"];
     };
   };
 
@@ -15,10 +15,7 @@
     bat
     jq
     wget
-    direnv
     nushell
-    zsh
-    oh-my-zsh
     btop
     superfile
     exiftool

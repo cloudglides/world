@@ -1,38 +1,38 @@
-{pkgs, ...}: {
+{pkgs, inputs, config, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
 
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 1;
+  };
 
-
-boot.kernel.sysctl = {
-  "kernel.sysrq" = 1;
-};
-
-
- fonts.packages = with pkgs; [
-     noto-fonts-cjk-sans
-   ];
-
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    nerd-fonts.fira-code
+  ];
 
   programs.nix-ld.enable = true;
   services.gvfs.enable = true;
   programs.dconf.enable = true;
 
-services.gnome.gnome-online-accounts.enable = true;
- services.dbus.packages = [
+  services.fstrim.enable = true;
+
+  hardware.bluetooth.enable = true;
+
+  services.gnome.gnome-online-accounts.enable = true;
+  services.dbus.packages = [
     pkgs.gnome-online-accounts
     pkgs.gvfs
   ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 30;
 
   hardware.enableRedistributableFirmware = true;
   hardware.graphics.enable = true;
-hardware.graphics.enable32Bit = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-35.7.5"
-  ];
+  hardware.graphics.enable32Bit = true;
+
   console.keyMap = "us";
 
   networking.hostName = "nixos";
@@ -72,6 +72,30 @@ hardware.graphics.enable32Bit = true;
     desktopManager.gnome.enable = true;
   };
 
+  environment.gnome.excludePackages = with pkgs; [
+    cheese
+    epiphany
+    gnome-characters
+    gnome-console
+    gnome-contacts
+    gnome-klotski
+    gnome-mahjongg
+    gnome-maps
+    gnome-mines
+    gnome-music
+    gnome-nibbles
+    gnome-robots
+    gnome-sound-recorder
+    gnome-sudoku
+    gnome-taquin
+    gnome-tetravex
+    gnome-tour
+    gnome-weather
+    simple-scan
+    totem
+    yelp
+  ];
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -106,8 +130,9 @@ hardware.graphics.enable32Bit = true;
   services.openssh = {
     enable = true;
     settings = {
-      PasswordAuthentication = true;
-      ChallengeResponseAuthentication = true;
+      PasswordAuthentication = false;
+      ChallengeResponseAuthentication = false;
+      KbdInteractiveAuthentication = false;
     };
   };
   nix.settings = {
@@ -116,18 +141,34 @@ hardware.graphics.enable32Bit = true;
     substituters = [
       "https://cache.nixos.org"
       "https://devenv.cachix.org"
+      "https://helium-nix.cachix.org"
     ];
     trusted-public-keys = [
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+      "helium-nix.cachix.org-1:a8YPjt9O4GPyX0u3gjg/aWpb14teU9aRiSG/MOaSFgw="
     ];
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  nix.optimise.automatic = true;
+
   environment.systemPackages = with pkgs; [
-    tlp
-     gvfs
-    gnome-online-accounts
     rclone
   ];
+
+  sops = {
+    defaultSopsFile = ../../secrets.yaml;
+    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    secrets.gitconfig = {
+      owner = config.users.users.cloudglides.name;
+      mode = "0444";
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
 

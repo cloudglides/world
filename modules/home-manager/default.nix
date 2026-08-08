@@ -24,6 +24,15 @@
     pinentry.package = pkgs.pinentry-tty;
   };
 
+  programs.git = {
+    enable = true;
+    settings = {
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      include.path = "/run/secrets/gitconfig";
+    };
+  };
+
   programs.direnv = {
     enable = true;
     silent = true;
@@ -67,25 +76,24 @@
   ];
 
   home.packages = with pkgs; [
-    nodejs_24
+    beamPackages.erlang
+    beamPackages.elixir
+    beamPackages.elixir-ls
+    inotify-tools
+    nodejs_26
     zig_0_13
     jjui
     jujutsu
     nixos-icons
     pokeget-rs
     qemu
-    tailscale
     qbittorrent-enhanced
     brave
     bun
     zed
-    spicetify-cli
     wl-clipboard
-    qbittorrent-enhanced
     gemini-cli
-    freecad-wayland
     niri
-    tmux
     helium
     inputs.lookout.packages.${pkgs.system}.default
     inputs.hayase.packages.${pkgs.system}.default
@@ -96,9 +104,9 @@
     amp-cli
     proton-vpn
     firefox
-    osu-lazer
     blender
     kicad
     antigravity
+    inputs.opencode.packages.${pkgs.system}.default
   ];
 }

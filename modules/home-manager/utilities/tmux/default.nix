@@ -38,7 +38,7 @@ with lib; {
 
         # Vi-like visual copy (updated syntax for modern tmux)
         bind-key -T copy-mode-vi 'v' send -X begin-selection
-        bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+        bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel 'wl-copy'
 
         # Set the prefix to ^A
         unbind C-b

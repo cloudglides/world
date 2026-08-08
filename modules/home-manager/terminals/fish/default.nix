@@ -5,6 +5,13 @@
       kys = "echo o > /proc/sysrq-trigger";
     };
 
+    plugins = [
+      {
+        name = "wakatime-fish";
+        src = pkgs.fishPlugins.wakatime-fish;
+      }
+    ];
+
     interactiveShellInit = ''
 
        set fish_greeting (awk '
@@ -37,11 +44,7 @@
   };
 
   home.packages = with pkgs; [
-    fish
     git
     gnome-tweaks
-    auto-cpufreq
-    zsh
-    oh-my-zsh
   ];
 }
