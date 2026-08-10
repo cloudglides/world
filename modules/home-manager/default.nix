@@ -95,8 +95,8 @@
     gemini-cli
     niri
     helium
-    inputs.lookout.packages.${pkgs.system}.default
-    inputs.hayase.packages.${pkgs.system}.default
+    inputs.lookout.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.hayase.packages.${pkgs.stdenv.hostPlatform.system}.default
     cargo-tauri
     discord-ptb
     pnpm
@@ -106,7 +106,6 @@
     firefox
     blender
     kicad
-    antigravity
-    inputs.opencode.packages.${pkgs.system}.default
+    inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

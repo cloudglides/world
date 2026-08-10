@@ -66,12 +66,20 @@ local plugins = {
       vim.lsp.enable('svelte')
     end,
   },
-  -- null-ls for formatting (Prettier)
+  -- Autopairs with cmp integration
   {
-    "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return require("configs.null-ls")
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    dependencies = { "hrsh7th/nvim-cmp" },
+    config = function()
+      local npairs = require("nvim-autopairs")
+      npairs.setup({
+        check_ts = true,
+        fast_wrap = {},
+      })
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      local cmp = require("cmp")
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
   },
   -- Auto-tagging for Svelte
@@ -123,7 +131,7 @@ local plugins = {
   -- Trouble
   {
     "folke/trouble.nvim",
-    cmd = { "Trouble", "TroubleToggle" },
+    cmd = { "Trouble" },
   },
   -- Todo Comments
   {
@@ -131,15 +139,16 @@ local plugins = {
     cmd = { "TodoTrouble", "TodoTelescope" },
     config = true,
   },
-  -- Neodev
+  -- Lazydev (neodev replacement)
   {
-    "folke/neodev.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("neodev").setup({
-        library = { plugins = { "nvim-dap-ui" }, types = true },
-      })
-    end,
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+        { path = "nvim-dap-ui" },
+      },
+    },
   },
   -- Debugging
   {
@@ -151,10 +160,10 @@ local plugins = {
   },
   -- Colorizer
   {
-    "norcalli/nvim-colorizer.lua",
+    "brenoprata10/nvim-highlight-colors",
     event = "BufReadPost",
     config = function()
-      require("colorizer").setup()
+      require("nvim-highlight-colors").setup({ render = "background" })
     end,
   },
   -- Markdown Preview
@@ -162,6 +171,23 @@ local plugins = {
     "OXY2DEV/markview.nvim",
     event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+  },
+  -- Linting (replaces null-ls linting)
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPost", "BufWritePost" },
+    config = function()
+      local lint = require("lint")
+      lint.linters_by_ft = {
+        nix = { "deadnix", "statix" },
+        go = { "staticcheck" },
+      }
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+    end,
   },
   -- Clipboard Enhancements
   {

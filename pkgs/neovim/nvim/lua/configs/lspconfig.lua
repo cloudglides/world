@@ -9,7 +9,7 @@ local servers = {
   -- "rust_analyzer", -- Removed to avoid conflict with rustaceanvim
   "elixirls",
   "clangd",
-  "tsserver",
+  -- "tsserver", -- Replaced by typescript-tools.nvim
   "tailwindcss",
 }
 

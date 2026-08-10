@@ -37,7 +37,6 @@ M.mason = {
     -- defaults
     "lua-language-server",
     "stylua",
-    "luacheck",
 
     -- web dev
     "css-lsp",
@@ -58,6 +57,7 @@ M.mason = {
 
     -- rust
     "codelldb",
+    "rustfmt",
   },
 }
 

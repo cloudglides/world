@@ -34,12 +34,11 @@ map("n", "<leader>Ss", "<cmd>SessionManager! save_current_session<cr>", { desc =
 map("n", "<leader>Sd", "<cmd>SessionManager! delete_session<cr>", { desc = "Delete session" })
 map("n", "<leader>Sf", "<cmd>SessionManager! load_session<cr>", { desc = "Search sessions" })
 map("n", "<leader>S.", "<cmd>SessionManager! load_current_dir_session<cr>", { desc = "Load current directory session" })
-map("n", "<leader>tt", "<cmd>TroubleToggle<cr>", { desc = "Toggle diagnostics" })
+map("n", "<leader>tt", "<cmd>Trouble<cr>", { desc = "Toggle diagnostics" })
 map("n", "<leader>td", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME,BUG,TEST,NOTE<cr>", { desc = "Todo/Fix/Fixme" })
 map("n", "<leader>m", toggleTreesj, { desc = "Toggle Treesitter Join" })
 map("n", "<leader>o", "<cmd>Outline<cr>", { desc = "Toggle Outline" })
-map("n", "<leader>tn", "<cmd>Boole increment<cr>", { desc = "Increase value" })
-map("n", "<leader>tp", "<cmd>Boole decrement<cr>", { desc = "Decrease value" })
+
 map("n", "<leader>X", closeAllBuffer, { desc = "Close all buffers" })
 
 -- DAP
