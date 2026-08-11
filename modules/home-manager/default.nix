@@ -48,7 +48,7 @@
   home = {
     username = "cloudglides";
     homeDirectory = "/home/cloudglides";
-    stateVersion = "24.05";
+    stateVersion = "24.11";
   };
 
   programs = {
@@ -92,7 +92,7 @@
     bun
     zed
     wl-clipboard
-    gemini-cli
+    antigravity-cli
     niri
     helium
     inputs.lookout.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -106,6 +106,6 @@
     firefox
     blender
     kicad
-    inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
+    cloudglides-opencode
   ];
 }

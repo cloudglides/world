@@ -41,6 +41,7 @@
   services.tailscale.enable = true;
 
   services.tlp = {
+    enable = true;
     settings = {
       START_CHARGE_THRESH_BAT0 = 50;
       STOP_CHARGE_THRESH_BAT0 = 80;
@@ -169,8 +170,6 @@
       mode = "0444";
     };
   };
-
-  nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "24.11";
 }

@@ -33,6 +33,7 @@
     overlay = final: prev: {
       cloudglides-nvim = final.callPackage ./pkgs/neovim {};
       cloudglides-ghostty = final.callPackage ./pkgs/ghostty {};
+      cloudglides-opencode = final.callPackage ./pkgs/opencode {};
     };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
