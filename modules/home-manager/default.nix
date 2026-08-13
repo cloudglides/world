@@ -7,7 +7,6 @@
     ./utilities/fastfetch
     ./utilities/tmux
     ./utilities/vesktop
-    ./services/proton-mail-bridge
   ];
 
   programs.gpg = {
@@ -107,11 +106,4 @@
     cloudglides-opencode
   ];
 
-  # Proton Mail Bridge configuration
-  # After installing Bridge manually (see below), set enable = true
-  # and provide your Bridge credentials
-  proton-mail-bridge = {
-    enable = false;
-    installPath = "/opt/proton-mail-bridge";
-  };
-}
+  }
