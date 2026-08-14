@@ -1,20 +1,38 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
-# Proton Mail Bridge module
-# Requires Proton Mail paid plan (Unlimited, Business, or Legacy)
-# Download Bridge: https://proton.me/mail/bridge
+# Proton Mail Bridge
+# Requires Proton Mail paid plan (Unlimited, Business, or Legacy).
+# Headless daemon exposing IMAP (127.0.0.1:1143) and SMTP (127.0.0.1:1025).
 #
-# After installation:
-# 1. Start Proton Mail Bridge
-# 2. Account → Copy password → Save this Bridge password
-# 3. Update ~/.config/opencode/mcp-config.json with credentials
-# 4. Run: home-manager switch
+# After install:
+#   1. Log in once:  protonmail-bridge --cli login
+#      (username/password are your normal Proton credentials; TOTP if 2FA)
+#   2. Bridge generates its own password -> Account > Copy password
+#   3. Set PROTONMAIL_USERNAME + PROTONMAIL_PASSWORD for the opencode MCP
+#   4. Restart opencode
 
-proton-mail-bridge = {
-  enable = false;  # Set true after Bridge installed
+{
+  home.packages = [ pkgs.protonmail-bridge ];
 
-  installPath = "/opt/proton-mail-bridge";
+  systemd.user.services.protonmail-bridge = {
+    Unit = {
+      Description = "Proton Mail Bridge (headless daemon)";
+      After = [ "network-online.target" ];
+      Wants = [ "network-online.target" ];
+    };
 
-  # Post-installation: auto-start Bridge
-  # (managed manually or via systemd on NixOS)
-};
+    Service = {
+      ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive --cli";
+      Restart = "on-failure";
+      RestartSec = "10";
+      Environment = [
+        "PROTONMAIL_BRIDGE_KEYCHAIN=plaintext"
+        "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus"
+      ];
+    };
+
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+}

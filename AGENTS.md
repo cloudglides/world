@@ -41,6 +41,9 @@ entire desktop system + home environment. Built with `nixos-unstable`.
   `cloudglides-nvim`. Custom packages are `callPackage`'d, not added to nixpkgs.
 - `home.packages` is the catch-all for user packages (see `modules/home-manager/default.nix`).
 - Use `with pkgs;` inside `home.packages` lists.
+- **Always commit unsigned** — `commit.gpgsign = true` is set globally and
+  signing prompts for a GPG password, which hangs. Append `--no-gpg-sign` to
+  every `git commit`.
 - **Never hardcode secrets** in `.nix` files. Git identity, etc. lives in
   `secrets.yaml` and is referenced via `/run/secrets/...` paths (sops-nix). To add a
   secret: `sops secrets.yaml`, then add a `sops.secrets.<name>` entry in

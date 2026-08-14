@@ -7,6 +7,7 @@
     ./utilities/fastfetch
     ./utilities/tmux
     ./utilities/vesktop
+    ./services
   ];
 
   programs.gpg = {
@@ -103,7 +104,7 @@
     firefox
     blender
     kicad
-    cloudglides-opencode
+    opencode
   ];
 
   }
