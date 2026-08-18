@@ -18,6 +18,12 @@
 
   services.fstrim.enable = true;
 
+  services.thermald.enable = true;
+
+  zramSwap.enable = true;
+
+  systemd.oomd.enable = true;
+
   hardware.bluetooth.enable = true;
 
   services.gnome.gnome-online-accounts.enable = true;
@@ -28,15 +34,29 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 30;
+  boot.loader.timeout = 0;
 
   hardware.enableRedistributableFirmware = true;
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+  hardware.graphics.extraPackages = with pkgs; [
+    intel-media-driver
+    intel-vaapi-driver
+  ];
 
   console.keyMap = "us";
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+
+  systemd.services.NetworkManager-wait-online.enable = false;
+
+  systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/cloudglides/world";
+  };
 
   services.tailscale.enable = true;
 
@@ -47,11 +67,13 @@
       STOP_CHARGE_THRESH_BAT0 = 80;
 
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
       CPU_BOOST_ON_AC = 1;
       CPU_SCALING_MIN_FREQ_ON_AC = 400000;
       CPU_SCALING_MAX_FREQ_ON_AC = 4000000;
 
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
       CPU_BOOST_ON_BAT = 0;
       CPU_SCALING_MIN_FREQ_ON_BAT = 400000;
       CPU_SCALING_MAX_FREQ_ON_BAT = 3800000;
@@ -160,6 +182,7 @@
 
   environment.systemPackages = with pkgs; [
     rclone
+    lm_sensors
   ];
 
   sops = {

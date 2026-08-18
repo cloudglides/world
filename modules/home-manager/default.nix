@@ -105,6 +105,8 @@
     blender
     kicad
     opencode
+    just
+    nix-output-monitor
   ];
 
   }
