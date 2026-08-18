@@ -68,7 +68,7 @@
   services.flatpak.packages = [
     "org.vinegarhq.Sober"
     "com.stremio.Stremio"
-    "in.cinny.Cinny"
+    "im.nheko.Nheko"
     "com.usebottles.bottles"
     "com.bambulab.BambuStudio"
   ];

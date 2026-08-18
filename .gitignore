@@ -10,3 +10,6 @@ devenv.local.nix
 
 # useless anyways
 hardware-configuration.nix
+
+# nix build artifact
+result
