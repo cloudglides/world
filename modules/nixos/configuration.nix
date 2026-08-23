@@ -26,6 +26,13 @@
 
   hardware.bluetooth.enable = true;
 
+  # AULA F75 (and F87/F99 family, SinoWealth 258A): let Chromium/WebHID
+  # open the keyboard's /dev/hidraw node without root.
+  services.udev.extraRules = ''
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", MODE="0666"
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="fa09", MODE="0666"
+  '';
+
   services.gnome.gnome-online-accounts.enable = true;
   services.dbus.packages = [
     pkgs.gnome-online-accounts

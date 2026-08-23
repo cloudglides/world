@@ -57,7 +57,7 @@ vim.lsp.enable('html')
 vim.lsp.config('htmx', {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "html", "templ" },
+  filetypes = { "html", "templ", "heex" },
 })
 vim.lsp.enable('htmx')
 
@@ -67,7 +67,7 @@ vim.lsp.config('tailwindcss', {
   capabilities = capabilities,
   filetypes = {
     "templ", "astro", "javascript", "typescript",
-    "react", "typescriptreact"
+    "react", "typescriptreact", "heex"
   },
   init_options = { userLanguages = { templ = "html" } },
 })

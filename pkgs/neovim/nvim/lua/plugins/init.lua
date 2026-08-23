@@ -21,7 +21,7 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "svelte", "html", "css", "javascript", "typescript", "elixir" })
+      vim.list_extend(opts.ensure_installed, { "svelte", "html", "css", "javascript", "typescript", "elixir", "heex", "eex" })
     end,
   },
   { 'wakatime/vim-wakatime', lazy = false },
@@ -85,9 +85,33 @@ local plugins = {
   -- Auto-tagging for Svelte
   {
     "windwp/nvim-ts-autotag",
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte" },
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "html", "heex" },
     config = function()
       require("nvim-ts-autotag").setup()
+    end,
+  },
+  -- Auto-insert `end` for Elixir/Ruby blocks
+  {
+    "RRethy/nvim-treesitter-endwise",
+    event = "InsertEnter",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
+    end,
+  },
+  -- Rainbow nesting so `do`/`end` pairs are visually distinct
+  {
+    "hiphish/rainbow-delimiters.nvim",
+    event = "BufReadPost",
+    config = function()
+      local r = require("rainbow-delimiters")
+      require("rainbow-delimiters.setup").setup({
+        strategy = {
+          [""] = r.strategy["global"],
+          elixir = r.strategy["local"],
+          heex = r.strategy["local"],
+        },
+      })
     end,
   },
   -- Treesitter Context
