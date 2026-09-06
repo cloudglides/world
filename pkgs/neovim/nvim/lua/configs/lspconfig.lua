@@ -3,7 +3,6 @@ local on_attach = configs.on_attach
 local capabilities = configs.capabilities
 
 local servers = {
-  "eslint",
   "gopls",
   "templ",
   -- "rust_analyzer", -- Removed to avoid conflict with rustaceanvim
@@ -25,26 +24,32 @@ for _, lsp in ipairs(servers) do
     config.cmd = { "elixir-ls" } -- assumes elixir-ls is in PATH
   end
 
-  -- ESLint: use vscode-eslint-language-server (installed via mason as eslint-lsp)
-  if lsp == "eslint" then
-    local eslint_cmd = vim.fn.exepath("vscode-eslint-language-server")
-    if eslint_cmd ~= "" then
-      config.cmd = { eslint_cmd, "--stdio" }
-    else
-      -- Fallback: try mason path
-      local mason_path = vim.fn.stdpath("data") .. "/mason/bin/vscode-eslint-language-server"
-      if vim.fn.executable(mason_path) == 1 then
-        config.cmd = { mason_path, "--stdio" }
-      end
-    end
-    config.settings = {
-      format = { enable = false },
-      workingDirectory = { mode = "location" },
-    }
-  end
-
   vim.lsp.config(lsp, config)
   vim.lsp.enable(lsp)
+end
+
+-- ESLint: only enable when vscode-eslint-language-server is resolvable,
+-- otherwise spawning fails at runtime (nixpkgs vscode-langservers-extracted
+-- is the primary source; mason eslint-lsp is the fallback)
+local eslint_cmd = vim.fn.exepath("vscode-eslint-language-server")
+if eslint_cmd == "" then
+  local mason_path = vim.fn.stdpath("data") .. "/mason/bin/vscode-eslint-language-server"
+  if vim.fn.executable(mason_path) == 1 then
+    eslint_cmd = mason_path
+  end
+end
+
+if eslint_cmd ~= "" then
+  vim.lsp.config("eslint", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { eslint_cmd, "--stdio" },
+    settings = {
+      format = { enable = false },
+      workingDirectory = { mode = "location" },
+    },
+  })
+  vim.lsp.enable("eslint")
 end
 
 -- nil_ls configuration

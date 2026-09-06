@@ -106,5 +106,15 @@
     nix-output-monitor
     inputs.lookout.packages.${pkgs.stdenv.hostPlatform.system}.default
     krita
+    vscode-langservers-extracted
+    gopls
+    clang-tools
+    tailwindcss-language-server
+    templ
+    svelte-language-server
+    stylua
+    prettierd
+    gofumpt
+    gotools
   ];
 }

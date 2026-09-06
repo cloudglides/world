@@ -9,13 +9,6 @@ local plugins = {
       require("configs.conform")
     end,
   },
-    -- Amp Plugin
-{
-  "sourcegraph/amp.nvim",
-  branch = "main", 
-  lazy = false,
-  opts = { auto_start = true, log_level = "info" },
-},
   -- Treesitter with Svelte support
   {
     "nvim-treesitter/nvim-treesitter",
@@ -251,7 +244,6 @@ local plugins = {
       local lint = require("lint")
       lint.linters_by_ft = {
         nix = { "deadnix", "statix" },
-        go = { "staticcheck" },
       }
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         callback = function()
