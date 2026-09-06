@@ -1,0 +1,26 @@
+name: "Update flake.lock"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-flake-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: DeterminateSystems/nix-installer-action@v22
+      # Adding a PAT as a secret (e.g. GH_TOKEN_FOR_UPDATES) and passing it via
+      # `token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}` below would let ci.yml run
+      # on the bot-created PR (GITHUB_TOKEN-triggered events do not retrigger CI).
+      - uses: DeterminateSystems/update-flake-lock@v28
+        with:
+          pr-title: "Update Nix flake inputs"
+          pr-labels: |
+            dependencies
+            automated

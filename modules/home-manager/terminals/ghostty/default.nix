@@ -15,7 +15,6 @@
     bat
     jq
     wget
-    nushell
     btop
     superfile
     exiftool

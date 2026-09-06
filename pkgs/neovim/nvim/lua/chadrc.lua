@@ -3,6 +3,7 @@ local M = {}
 M.base46 = {
 	theme = "poimandres",
 	transparency = true,
+	integrations = { "rainbowdelimiters" },
 }
 
 M.lsp = {

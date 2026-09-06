@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./terminals/fish
     ./editors/neovim
@@ -66,12 +70,14 @@
   programs.nixcord.discord.vencord.enable = true;
 
   services.flatpak.packages = [
-    "org.vinegarhq.Sober"
     "com.stremio.Stremio"
     "im.nheko.Nheko"
-    "com.usebottles.bottles"
     "com.bambulab.BambuStudio"
   ];
+
+  dconf.settings."org/gnome/desktop/wm/preferences" = {
+    button-layout = ":";
+  };
 
   home.packages = with pkgs; [
     beamPackages.erlang
@@ -79,34 +85,26 @@
     beamPackages.elixir-ls
     inotify-tools
     nodejs_26
-    zig_0_13
     jjui
     jujutsu
     nixos-icons
-    pokeget-rs
     qemu
-    qbittorrent-enhanced
-    brave
     bun
-    zed
     wl-clipboard
-    antigravity-cli
-    niri
     helium
-    inputs.lookout.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.hayase.packages.${pkgs.stdenv.hostPlatform.system}.default
     cargo-tauri
     discord-ptb
     pnpm
     wakatime-cli
     amp-cli
-    proton-vpn
     firefox
     blender
     kicad
     opencode
     just
     nix-output-monitor
+    inputs.lookout.packages.${pkgs.stdenv.hostPlatform.system}.default
+    krita
   ];
-
-  }
+}

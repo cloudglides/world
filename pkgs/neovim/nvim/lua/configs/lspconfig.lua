@@ -25,6 +25,24 @@ for _, lsp in ipairs(servers) do
     config.cmd = { "elixir-ls" } -- assumes elixir-ls is in PATH
   end
 
+  -- ESLint: use vscode-eslint-language-server (installed via mason as eslint-lsp)
+  if lsp == "eslint" then
+    local eslint_cmd = vim.fn.exepath("vscode-eslint-language-server")
+    if eslint_cmd ~= "" then
+      config.cmd = { eslint_cmd, "--stdio" }
+    else
+      -- Fallback: try mason path
+      local mason_path = vim.fn.stdpath("data") .. "/mason/bin/vscode-eslint-language-server"
+      if vim.fn.executable(mason_path) == 1 then
+        config.cmd = { mason_path, "--stdio" }
+      end
+    end
+    config.settings = {
+      format = { enable = false },
+      workingDirectory = { mode = "location" },
+    }
+  end
+
   vim.lsp.config(lsp, config)
   vim.lsp.enable(lsp)
 end
@@ -49,17 +67,12 @@ vim.lsp.enable('nil_ls')
 vim.lsp.config('html', {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "html", "templ" },
+  filetypes = { "html", "templ", "heex" },
+  init_options = {
+    provideFormatter = false,
+  },
 })
 vim.lsp.enable('html')
-
--- HTMX configuration
-vim.lsp.config('htmx', {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  filetypes = { "html", "templ", "heex" },
-})
-vim.lsp.enable('htmx')
 
 -- Tailwind CSS configuration
 vim.lsp.config('tailwindcss', {
@@ -69,6 +82,6 @@ vim.lsp.config('tailwindcss', {
     "templ", "astro", "javascript", "typescript",
     "react", "typescriptreact", "heex"
   },
-  init_options = { userLanguages = { templ = "html" } },
+  init_options = { userLanguages = { templ = "html", heex = "html" } },
 })
 vim.lsp.enable('tailwindcss')

@@ -21,7 +21,15 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "svelte", "html", "css", "javascript", "typescript", "elixir", "heex", "eex" })
+      vim.list_extend(opts.ensure_installed, { "svelte", "html", "css", "javascript", "typescript", "elixir", "heex", "eex", "nix", "go", "rust", "templ" })
+      opts.highlight = opts.highlight or {}
+      opts.highlight.enable = true
+      opts.highlight.additional_vim_regex_highlighting = false
+      opts.indent = opts.indent or {}
+      opts.indent.enable = true
+      -- Fix for nvim 0.12.1 parser issues
+      opts.auto_install = true
+      opts.sync_install = false
     end,
   },
   { 'wakatime/vim-wakatime', lazy = false },
@@ -99,25 +107,37 @@ local plugins = {
       require("nvim-treesitter.configs").setup({ endwise = { enable = true } })
     end,
   },
-  -- Rainbow nesting so `do`/`end` pairs are visually distinct
-  {
-    "hiphish/rainbow-delimiters.nvim",
-    event = "BufReadPost",
-    config = function()
-      local r = require("rainbow-delimiters")
-      require("rainbow-delimiters.setup").setup({
-        strategy = {
-          [""] = r.strategy["global"],
-          elixir = r.strategy["local"],
-          heex = r.strategy["local"],
-        },
-      })
-    end,
-  },
-  -- Treesitter Context
+-- Treesitter Context - nvim 0.12.1 compatibility fix
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = "BufReadPost",
+    opts = {
+      enable = true,
+      max_lines = 0,
+      min_window_height = 0,
+      line_numbers = true,
+      multiline_threshold = 20,
+      trim_scope = "outer",
+      mode = "cursor",
+      separator = nil,
+      zindex = 20,
+      on_attach = function(buf)
+        return vim.api.nvim_buf_line_count(buf) < 5000
+      end,
+    },
+    config = function(_, opts)
+      require("treesitter-context").setup(opts)
+      -- Workaround for nvim 0.12.1 "No handler for match-percent-separator" and assertion errors
+      local context_mod = require("treesitter-context.context")
+      local orig_get = context_mod.get
+      context_mod.get = function(...)
+        local ok, ranges, lines = pcall(orig_get, ...)
+        if not ok then return {}, {} end
+        if not ranges then return {}, {} end
+        if not lines then return ranges, {} end
+        return ranges, lines
+      end
+    end,
   },
   -- Rust support
   {
@@ -152,16 +172,30 @@ local plugins = {
     lazy = false,
     -- opts = {}
   },
-  -- Trouble
+  -- Trouble - nvim 0.12+ treesitter source fix
   {
     "folke/trouble.nvim",
     cmd = { "Trouble" },
+    opts = function()
+      return {
+        modes = {
+          diagnostics = {
+            source = false, -- disable treesitter source to avoid "attempt to call a nil value" error
+          },
+        },
+      }
+    end,
   },
-  -- Todo Comments
+  -- Todo Comments - nvim 0.12+ extmark regression fix
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    config = true,
+    config = function()
+      local ok, err = pcall(require, "todo-comments")
+      if not ok then
+        vim.notify("todo-comments.nvim failed to load: " .. tostring(err), vim.log.levels.WARN)
+      end
+    end,
   },
   -- Lazydev (neodev replacement)
   {
@@ -182,20 +216,33 @@ local plugins = {
     end,
     dependencies = { "rcarriga/nvim-dap-ui", "nvim-neotest/nvim-nio", "theHamsta/nvim-dap-virtual-text" },
   },
-  -- Colorizer
+  -- Colorizer - nvim 0.12+ startup error fix
   {
     "brenoprata10/nvim-highlight-colors",
     event = "BufReadPost",
     config = function()
-      require("nvim-highlight-colors").setup({ render = "background" })
+      local ok, err = pcall(require, "nvim-highlight-colors")
+      if not ok then
+        vim.notify("nvim-highlight-colors failed to load: " .. tostring(err), vim.log.levels.WARN)
+      else
+        require("nvim-highlight-colors").setup({ render = "background" })
+      end
     end,
   },
-  -- Markdown Preview
-  {
-    "OXY2DEV/markview.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-  },
+  -- Markdown Preview - DISABLED: nvim 0.12+ treesitter API incompatibility
+  -- "OXY2DEV/markview.nvim" causes: attempt to call method 'range' (a nil value)
+  -- Waiting for upstream fix: https://github.com/OXY2DEV/markview.nvim/issues
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+  --   config = function()
+  --     local ok, err = pcall(require, "markview")
+  --     if not ok then
+  --       vim.notify("markview.nvim failed to load: " .. tostring(err), vim.log.levels.WARN)
+  --     end
+  --   end,
+  -- },
   -- Linting (replaces null-ls linting)
   {
     "mfussenegger/nvim-lint",
