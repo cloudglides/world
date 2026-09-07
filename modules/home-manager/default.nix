@@ -115,6 +115,10 @@
     stylua
     prettierd
     gofumpt
-    gotools
+    (symlinkJoin {
+      name = "gotools";
+      paths = [ gotools ];
+      postBuild = "rm $out/bin/play";
+    })
   ];
 }
