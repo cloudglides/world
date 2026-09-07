@@ -20,6 +20,7 @@ jobs:
       # on the bot-created PR (GITHUB_TOKEN-triggered events do not retrigger CI).
       - uses: DeterminateSystems/update-flake-lock@v28
         with:
+          commit-msg: "chore: bump flake inputs"
           pr-title: "Update Nix flake inputs"
           pr-labels: |
             dependencies
